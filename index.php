@@ -1,6 +1,6 @@
 <?php
   try{
-    $bdd = new PDO('mysql:host=localhost;dbname=DATACS;charset=utf8', 'psaulay', '*****');
+    $bdd = new PDO('mysql:host=localhost;dbname=DATACS;charset=utf8', 'psaulay', '');
   }
   catch (Exception $e){
     die('Erreur : ' . $e->getMessage());
@@ -9,8 +9,9 @@
   $reponse = $bdd->prepare('SELECT * FROM Crypto WHERE nom LIKE :question OR code LIKE :question');
   $reponse->execute(['question' => "%".$_POST['question']."%"]);
   $results = $reponse->fetchAll();
-
-  $answer = '<ul>';
+  $total = count($results);
+  $answer = '<p>'.$total.' résultats</p>';
+  $answer .= '<ul>';
   foreach ($results as $result){
     if ($result['nom'] != 'zclassic' && $result['nom'] != 'zencash' && $result['nom'] != 'okcash' && $result['nom'] != 'storj'){
       $api_url = "https://api.coinmarketcap.com/v2/ticker/".$result['cmk'];
