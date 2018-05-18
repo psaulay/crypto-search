@@ -8,8 +8,7 @@
       {
         die('Erreur : ' . $e->getMessage());
       }
-      // var_dump ($_POST);
-      // $question = $_POST['question'];
+
       $reponse = $bdd->prepare('SELECT * FROM Crypto WHERE nom LIKE :question OR code LIKE :question');
       // var_dump($_POST['question']); die();
       $reponse->execute(['question' => "%".$_POST['question']."%"
